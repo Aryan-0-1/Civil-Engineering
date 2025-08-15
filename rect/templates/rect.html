@@ -1,0 +1,263 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rectangular Notch Experiment</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon1.ico' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Inline CSS -->
+    <style>
+    :root {
+        --maroon: #800000;
+        --maroon-dark: #6b0000;
+        --muted: #6c6565ae;
+    }
+
+    body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        background: #fafafa;
+    }
+    h1 {
+            text-align: center;
+            background-color: maroon;
+            color: white;
+            padding: 20px 0;
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+    .header {
+        background: var(--maroon);
+        color: #fff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        border-bottom: 4px solid var(--maroon-dark);
+    }
+    .home-btn-container {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        border: 1px solid #000;
+        border-radius: 0;
+        padding: 0;
+        box-shadow: none;
+        }
+
+        .home-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: maroon;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+        }
+
+        .home-btn:hover {
+        background-color: #800000;
+        }
+        .button-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+    .btn-maroon {
+        background-color: var(--maroon);
+        color: #fff;
+        border: 1px solid var(--maroon-dark);
+    }
+
+    .btn-maroon:hover {
+        background-color: var(--maroon-dark);
+        color: #fff;
+    }
+
+    .card-header.bg-maroon {
+        background-color: var(--maroon) !important;
+        color: #fff;
+    }
+
+    .table thead.table-dark th {
+        background: var(--maroon);
+        border-color: var(--maroon-dark);
+        color: #fff;
+    }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+<!--    <div class="header py-3 text-center">-->
+<!--        <h1 class="mb-0">Rectangular Notch Experiment</h1>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Navbar &ndash;&gt;-->
+<!--    <nav class="navbar navbar-expand-lg" style="background-color: var(&#45;&#45;maroon);">-->
+<!--        <div class="container-fluid">-->
+<!--            <a class="navbar-brand text-white ms-3" href="/">Home</a>-->
+<!--        </div>-->
+<!--    </nav>-->
+    <h1>Rectangular Notch Experiment</h1>
+    <div class="home-btn-container">
+    <a href="/" class="home-btn">Home</a>
+    </div>
+    <!-- Main Container -->
+    <div class="container mt-4 mb-5">
+        <form method="post" id="readingForm" class="card p-3">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="numReadings" class="form-label">Select Number of Readings (4 to 7):</label>
+                <select id="numReadings" name="num_readings" class="form-select" onchange="generateInputRows()">
+                    <option value="" disabled {% if not num_readings %}selected{% endif %}>Select...</option>
+                    <option value="4" {% if num_readings == 4 or num_readings == '4' %}selected{% endif %}>4</option>
+                    <option value="5" {% if num_readings == 5 or num_readings == '5' %}selected{% endif %}>5</option>
+                    <option value="6" {% if num_readings == 6 or num_readings == '6' %}selected{% endif %}>6</option>
+                    <option value="7" {% if num_readings == 7 or num_readings == '7' %}selected{% endif %}>7</option>
+                </select>
+            </div>
+
+            <!-- Input Table -->
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>No.</th>
+                        <th>Ho (m)</th>
+                        <th>H (m)</th>
+                        <th>Volume (m³)</th>
+                        <th>Time (s)</th>
+                    </tr>
+                </thead>
+                <tbody id="inputRows">
+                    {% if num_readings %}
+                        {% for i in "1234567"|slice:":num_readings"|make_list %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td><input type="text" name="ho_{{ forloop.counter }}" class="form-control"></td>
+                                <td><input type="text" name="h_{{ forloop.counter }}" class="form-control"></td>
+                                <td><input type="text" name="volume_{{ forloop.counter }}" class="form-control"></td>
+                                <td><input type="text" name="time_{{ forloop.counter }}" class="form-control"></td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-maroon btn-sm me-2">Submit Readings</button>
+                <a href="{% url 'reset' %}" class="btn btn-secondary btn-sm">Reset</a>
+            </div>
+        </form>
+
+        <!-- Observation Table -->
+        {% if readings %}
+        <div class="card mt-4">
+            <div class="card-header bg-maroon text-white">Observation Table</div>
+            <table class="table table-bordered mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>No.</th>
+                        <th>H (m)</th>
+                        <th>Q (m³/s)</th>
+                        <th>H<sup>3/2</sup></th>
+                        <th>Exp. Cd</th>
+                        <th>Theo. Cd</th>
+                        <th>% Error</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reading in readings %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ reading.H|floatformat:3 }}</td>
+                        <td>{{ reading.Q|floatformat:5 }}</td>
+                        <td>{{ reading.H_3_2|floatformat:5 }}</td>
+                        <td>{{ reading.experimental_Cd|floatformat:3 }}</td>
+                        <td>0.62</td>
+                        <td>{{ reading.percent_error|floatformat:2 }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        <!-- Graph -->
+        {% if complete %}
+        <div class="card mt-4 p-3" style="height:400px;">
+            <canvas id="qChart"></canvas>
+        </div>
+        <div class="alert alert-success mt-3">
+            <strong>Regression Equation:</strong> {{ regression_eq }}<br>
+            <strong>Cd by graph:</strong> {{ cd_by_regressionequation }}<br>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- scripts -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'rect.js' %}"></script>
+
+    <script>
+    {% if complete %}
+    const H32 = {{ H_3_2_values|safe }};
+    const Qvals = {{ Q_values|safe }};
+    const regressionLine = {{ regression_line|safe }};
+
+    const ctx = document.getElementById('qChart').getContext('2d');
+    const chart = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'Experimental Data',
+                    data: H32.map((x, i) => ({x: x, y: Qvals[i]})),
+                    showLine: false,
+                    pointRadius: 4
+                },
+                {
+                    label: 'Best Fit Line',
+                    data: H32.map((x, i) => ({x: x, y: regressionLine[i]})),
+                    type: 'line',
+                    fill: false,
+                    borderWidth: 2,
+                    pointRadius: 0
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { title: { display: true, text: 'Q vs H³/² Relationship' } },
+            scales: {
+                x: { type: 'linear', title: { display: true, text: 'H³/² (m^1.5)' } },
+                y: { title: { display: true, text: 'Flow Rate (Q) [m³/s]' } }
+            }
+        }
+    });
+    {% endif %}
+
+    function generateInputRows() {
+        const numReadings = parseInt(document.getElementById('numReadings').value || 0, 10);
+        const inputRows = document.getElementById('inputRows');
+        inputRows.innerHTML = '';
+        for (let i = 1; i <= numReadings; i++) {
+            inputRows.innerHTML += `
+                <tr>
+                    <td>${i}</td>
+                    <td><input type="text" name="ho_${i}" class="form-control"></td>
+                    <td><input type="text" name="h_${i}" class="form-control"></td>
+                    <td><input type="text" name="volume_${i}" class="form-control"></td>
+                    <td><input type="text" name="time_${i}" class="form-control"></td>
+                </tr>
+            `;
+        }
+    }
+    </script>
+</body>
+</html>

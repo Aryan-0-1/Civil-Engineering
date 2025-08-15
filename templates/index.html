@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Steel & Hydraulic/Hydrology Tools</title>
+    <link rel="icon" type="image/x-icon" href="../static/favicon.ico">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #eaeaf6;
+            font-family: Arial, sans-serif;
+        }
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        .header-flex img {
+            height: 50px;
+            margin-right: 18px;
+        }
+        .main-heading {
+            font-size: 2.2em;
+            color: maroon;
+            font-weight: bold;
+        }
+        .main-box {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            width: 90vw;
+            max-width: 950px;
+            margin: 40px auto 0 auto;
+            padding: 40px 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 0;
+        }
+        .panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 30px;
+        }
+        .panel-heading {
+            text-align: center;
+            font-size: 1.5em;
+            color: maroon;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+        .divider {
+            width: 2px;
+            background: #ccc;
+            height: 350px;
+            align-self: center;
+        }
+        /* Button Styles */
+        .panel button {
+            display: block;
+            width: 80%;
+            margin: 15px auto;
+            padding: 15px;
+            font-size: 1.2em;
+            color: white;
+            background-color: maroon;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .panel button:hover {
+            background-color: #800000;
+        }
+        @media (max-width: 1000px) {
+            .main-box {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+            }
+            .divider {
+                display: none;
+            }
+            .panel {
+                width: 90vw;
+                padding: 0 10px;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header-flex">
+        <img src="../static/iitbhulogo.png" alt="IIT BHU Logo">
+        <div class="main-heading">Civil Engineering Computation Tools</div>
+    </div>
+    <div class="main-box">
+        <!-- Steel Design Panel -->
+        <div class="panel">
+            <div class="panel-heading">Steel Structure</div>
+            <button onclick="location.href='strut'">Strut</button>
+            <button onclick="location.href='tension'">Tension Member</button>
+            <button onclick="location.href='compression'">Compression Member</button>
+            <button onclick="location.href='web'">Web Buckling and Web Crippling</button>
+            <button onclick="location.href='unsupported'">Laterally Unsupported</button>
+            <button onclick="location.href='supported'">Laterally Supported</button>
+        </div>
+        <div class="divider"></div>
+        <!-- Hydraulic & Hydrology Panel -->
+        <div class="panel">
+            <div class="panel-heading">Hydraulics</div>
+            <button onclick="location.href='opencf'">Manning's Equation</button>
+            <button onclick="location.href='pipe'">Friction Head Loss</button>
+            <button onclick="location.href='rect'">Rectangular Notch</button>
+        </div>
+    </div>
+</body>
+</html>
