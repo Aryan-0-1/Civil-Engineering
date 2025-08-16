@@ -1,0 +1,140 @@
+/* General Body Styling */
+body {
+    background-color: #ffffff; /* White background for a clean look */
+    font-family: 'Arial', sans-serif;
+    color: #333; /* Dark text for readability */
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styling */
+.header {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #00509e; /* Professional blue */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Form Container Styling */
+.form-container {
+    background: #f8f9fa; /* Light gray background for contrast */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Form Label Styling */
+.form-label {
+    font-weight: bold;
+    color: #00509e; /* Blue text for labels */
+}
+
+/* Input Field Styling */
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styling */
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Bootstrap blue */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Result Field Styling */
+.result-field {
+    background-color: #e9ecef; /* Light gray for results */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Hidden Elements */
+.hidden {
+    display: none;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #00509e; /* Professional blue */
+    color: white;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #f8f9fa; /* Light gray for alternating rows */
+}
+
+table tr:hover {
+    background-color: #e9ecef; /* Highlight row on hover */
+}
+
+/* Footer Styling */
+footer {
+    background-color: #00509e; /* Professional blue */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 15px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+
+    table th,
+    table td {
+        font-size: 0.9rem;
+    }
+}

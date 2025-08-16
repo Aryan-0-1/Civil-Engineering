@@ -33,6 +33,7 @@ SRF_TRUSTED_ORIGINS = [
     # example placeholders – update after generating your domain
     "https://*.up.railway.app",
     "https://*.railway.app",
+    'https://your-railway-subdomain.up.railway.app'
 ]
 
 # Application definition
