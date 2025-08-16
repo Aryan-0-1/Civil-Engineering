@@ -108,7 +108,7 @@
     </div>
     <!-- Main Container -->
     <div class="container mt-4 mb-5">
-        <form method="post" id="readingForm" class="card p-3">
+        <form method="post" action="{% url 'experiment' %}" id="readingForm" class="card p-3">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="numReadings" class="form-label">Select Number of Readings (4 to 7):</label>
