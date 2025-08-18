@@ -23,8 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-cbd+=8ybl48+a&n$uk5v_6ec+3d$4_+sm9ov1_1i(h624+0d$)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+DEBUG = True
+# DEBUG = os.getenv("DEBUG", "False").lower() == "true"
 
 SECRET_KEY = os.getenv("SECRET_KEY", "change-me")  # Set in Railway
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
