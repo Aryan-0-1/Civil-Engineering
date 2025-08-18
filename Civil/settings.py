@@ -29,12 +29,8 @@ DEBUG = True
 SECRET_KEY = os.getenv("SECRET_KEY", "change-me")  # Set in Railway
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 # ALLOWED_HOSTS = []
-SRF_TRUSTED_ORIGINS = [
-    # example placeholders – update after generating your domain
-    "https://*.up.railway.app",
-    "https://*.railway.app",
-    'https://your-railway-subdomain.up.railway.app',
-    "https://protective-vision-production.up.railway.app"
+CSRF_TRUSTED_ORIGINS = [
+    "https://protective-vision-production.up.railway.app",
 ]
 
 # Application definition
