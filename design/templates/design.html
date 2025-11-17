@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Steel Structure Design</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Steel Beam Design</h1>
+    <form id="designForm">
+        <label>Load (kN/m): </label>
+        <input type="number" name="load" required><br>
+        <label>Span (m): </label>
+        <input type="number" name="span" required><br>
+        <label>Steel Grade: </label>
+        <select name="steel_grade">
+            <option value="Fe250">Fe250</option>
+            <option value="Fe415">Fe415</option>
+            <option value="Fe500">Fe500</option>
+        </select><br>
+        <button type="submit">Design</button>
+    </form>
+
+    <h2>Result:</h2>
+    <pre id="result"></pre>
+
+    <canvas id="bendingChart" width="400" height="200"></canvas>
+
+    <script>
+    document.getElementById('designForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        const formData = new FormData(this);
+        const data = {};
+        formData.forEach((value,key) => data[key] = value);
+
+        fetch("", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(res => {
+            document.getElementById("result").textContent = JSON.stringify(res, null, 2);
+
+            // Plot bending moment
+            const ctx = document.getElementById('bendingChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [0, data.span/4, data.span/2, 3*data.span/4, data.span],
+                    datasets: [{
+                        label: 'Bending Moment (kNm)',
+                        data: [0, res.M_kNm/2, res.M_kNm, res.M_kNm/2, 0],
+                        borderColor: 'red',
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true }
+                    }
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>

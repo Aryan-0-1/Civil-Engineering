@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'tension.apps.TensionConfig',
     'unsupported.apps.UnsupportedConfig',
     'web.apps.WebConfig',
+    'water_quality.apps.WaterQualityConfig',
+    # 'design.apps.DesignConfig',
 ]
 
 MIDDLEWARE = [
