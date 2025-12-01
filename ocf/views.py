@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
+
 def oc(request):
     return render(request,"opencf.html")
 
@@ -175,28 +176,6 @@ def calculate(request):
         return JsonResponse(result)
 
     return render(request, 'opencf.html')
-
-# Try for error handling
-    # try:
-    #         # basewidth = float(basewidth) 
-    #         slope1 = float(slope1) 
-    # except:
-    #         # basewidth = 0  # Default value for invalid input
-    #         slope1 = 0  # Default value for invalid input
-    # return JsonResponse(result)
-    # return JsonResponse(
-    #     result
-
-    #         # 'slope1': slope1,
-    #         # 'a':request.POST
-    #         # 'calculation_type': calculation_type,
-    #         # 'unit_system': unit_system,
-    #         # 'bottom_width': basewidth,
-    #     , safe=False )
-
-    # return render(request,'opencf.html',result)
-
-    # JsonResponse({'error': 'Invalid request method'}, status=405)
 
 
 

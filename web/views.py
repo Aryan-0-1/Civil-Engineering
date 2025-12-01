@@ -17,8 +17,8 @@ class Web:
         self.b = b
 
     def iscode(self):
-        df = pd.read_csv('C:\\Users\\aryan\PycharmProjects\Steel\steel\web\static\\beams.csv')
-        # section = self.section_type.str.split(' ')
+        df = pd.read_csv('web\static\\beams.csv')
+
         for i in range(len(df)):
             if df['Section '][i] == self.section_type:
                 D = df['D(mm)'][i]
@@ -60,7 +60,7 @@ class Web:
     def check_web_local_failures(self):
 
         tw, D, bf, tf, R = self.iscode()
-        buckling = self.web_buckling_strength( tw, D, bf, tf,R )
+        buckling = self.web_buckling_strength( tw, D, bf, tf,R ,1.1)
         crippling = self.web_crippling_strength( tw, bf, tf, R)
         factored_load = 1.5 * self.applied_load
 
