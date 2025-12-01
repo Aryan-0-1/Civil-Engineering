@@ -28,7 +28,7 @@ DEBUG = True
 
 SECRET_KEY = os.getenv("SECRET_KEY", "change-me")  # Set in Railway
 # ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['civil-engineering-p8g7.onrender.com', "localhost", "127.0.0.1"]
 CSRF_TRUSTED_ORIGINS = []
 
 # Application definition
